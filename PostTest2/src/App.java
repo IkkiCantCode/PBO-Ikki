@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 class Pokemon {
+    //Private access modifier untuk membatasi akses ke class tersebut
     private int dexNumber;
     private String name;
     private String type1;
@@ -46,7 +47,7 @@ class Pokemon {
         this.spDefense = spDefense;
         this.speed = speed;
     }
-    //Getter
+    //Getter menggunakan access modifier public
     public int getDexNumber() {
         return dexNumber;
     }
@@ -99,7 +100,7 @@ class Pokemon {
         return total;
     }
     
-    //Setter
+    //Setter menggunakan access modifier public 
     public void setDexNumber(int dexNumber) {
         this.dexNumber = dexNumber;
     }
@@ -189,9 +190,14 @@ class TypeChart {
     }
 
     public void display() {
+        System.out.println("====================================");
         System.out.println("Weaknesses : " + format(weaknesses));
+        System.out.println("====================================");
         System.out.println("Resistances : " + format(resistances));
+        System.out.println("====================================");
         System.out.println("Immunities : " + format(immunities));
+        System.out.println("====================================");
+
     }
 
     public String format(String[] list) {
@@ -301,7 +307,7 @@ public class App {
             int speed = 0;
 
             if (menu.equals("1")) {
-                System.out.println("Adding Pokemon to Pokedex");
+                System.out.println("=====Adding Pokemon to Pokedex=====");
                 System.out.println("Please fill all the information of your Pokemon");
                 System.out.print("Dex Number : ");
                     if (pokedex.size() > 0) {
@@ -459,7 +465,7 @@ public class App {
                     System.out.println("Pokedex is empty");
                     
                 } else {
-                    System.out.println("Updating Pokedex");
+                    System.out.println("=====Updating Pokedex=====");
                     for (int i = 0; i < pokedex.size(); i++) {
                         System.out.println("Pokemon Number : " + (i + 1));
                         pokedex.get(i).display();
@@ -625,7 +631,7 @@ public class App {
                 if (pokedex.size() == 0) {
                     System.out.println("Pokedex is empty");
                 } else {
-                    System.out.println("Releasing Pokemon");
+                    System.out.println("=====Releasing Pokemon=====");
                     for (int i = 0; i < pokedex.size(); i++) {
                         System.out.println("Pokemon Number : " + (i + 1));
                         pokedex.get(i).display();
@@ -646,24 +652,29 @@ public class App {
                     }
                 }
             } else if (menu.equals("5")) {
-                System.out.println("Type Chart");
+                System.out.println("=====Type Chart=====");
                 Types typeChart = new Types();
-                System.out.print("Enter the Pokemon Type you want to check");
+                System.out.println("Type List");
+                System.out.println("Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy");
+                System.out.print("Enter the Pokemon Type you want to check"); br.readLine(); 
                 System.out.println("Primary Type :");
                 String type1 = br.readLine();
                 System.out.println("Secondary Type (Press Enter if the Pokemon is Mono Type) :");
                 String type2 = br.readLine();
                 TypeChart primaryType = typeChart.getType(type1);
                 TypeChart secondaryType = typeChart.getType(type2);
-                if (type2.equals("")) {
-                    System.out.println("Primary Type:");
-                    primaryType.display();
-                } else {
-                    System.out.println("Primary Type:");
-                    primaryType.display();
-                    System.out.println("Secondary Type:");
-                    secondaryType.display();
-                }
+                    if (type2.equals("")) {
+                        System.out.println("Primary Type:");
+                        primaryType.display();
+                    } else if (primaryType != null && secondaryType != null){
+                        System.out.println("Primary Type:");
+                        primaryType.display();
+                        System.out.println("Secondary Type:");
+                        secondaryType.display();
+                    } else {
+                        System.out.println("Invalid Type");
+                        continue;
+                    }
                 
             } else if (menu.equals("6")) {
                 System.out.println("Exiting Pokedex");

@@ -294,6 +294,15 @@ public class App {
             String menu = br.readLine();
 
             int dexNumber = 0;
+            double height = 0.0;
+            double weight = 0.0;
+            int hp = 0;
+            int attack = 0;
+            int defense = 0;
+            int spAttack = 0;
+            int spDefense = 0;
+            int speed = 0;
+
             if (menu.equals("1")) {
                 System.out.println("Adding Pokemon to Pokedex");
                 System.out.println("Please fill all the information of your Pokemon");
@@ -329,9 +338,29 @@ public class App {
                 System.out.print("Species : ");
                 String species = br.readLine();
                 System.out.print("Height : ");
-                double height = Double.parseDouble(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+                            height = Double.parseDouble(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Height");
+                            System.out.print("Height : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Weight : ");
-                double weight = Double.parseDouble(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+                            weight = Double.parseDouble(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Weight");
+                            System.out.print("Weight : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Ability 1 : ");
                 String ability1 = br.readLine();
                 System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
@@ -339,17 +368,77 @@ public class App {
                 System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
                 String hiddenAbility = br.readLine();
                 System.out.print("HP : ");
-                int hp = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            hp = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid HP");
+                            System.out.print("HP : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Attack : ");
-                int attack = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            attack = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Attack");
+                            System.out.print("Attack : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Defense : ");
-                int defense = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            defense = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Defense");
+                            System.out.print("Defense : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Special Attack : ");
-                int spAttack = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            spAttack = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Special Attack");
+                            System.out.print("Special Attack : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Special Defense : ");
-                int spDefense = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            spDefense = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Special Defense");
+                            System.out.print("Special Defense : ");
+                            continue;
+                        }
+                    }
                 System.out.print("Speed : ");
-                int speed = Integer.parseInt(br.readLine());
+                    while (true) {
+                        String input = br.readLine();
+                        if (input.matches("\\d+")) {
+                            speed = Integer.parseInt(input);
+                            break;
+                        } else {
+                            System.out.println("Invalid Speed");
+                            System.out.print("Speed : ");
+                            continue;
+                        }
+                    }
 
                 Pokemon newPokemon = new Pokemon(dexNumber, name, type1, type2, species, 
                                                     height, weight, ability1, ability2, 

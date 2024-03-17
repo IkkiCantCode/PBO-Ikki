@@ -6,23 +6,23 @@ import java.io.IOException;
 import java.io.InputStream;
 
 class Pokemon {
-    int dexNumber;
-    String name;
-    String type1;
-    String type2;
-    String species;
-    double height;
-    double weight;
-    String ability1;
-    String ability2;
-    String hiddenAbility;
-    int hp;
-    int attack;
-    int defense;
-    int spAttack;
-    int spDefense;
-    int speed;
-    int total = hp + attack + defense + spAttack + spDefense + speed;
+    private int dexNumber;
+    private String name;
+    private String type1;
+    private String type2;
+    private String species;
+    private double height;
+    private double weight;
+    private String ability1;
+    private String ability2;
+    private String hiddenAbility;
+    private int hp;
+    private int attack;
+    private int defense;
+    private int spAttack;
+    private int spDefense;
+    private int speed;
+    private int total = hp + attack + defense + spAttack + spDefense + speed;
 
     public Pokemon(int dexNumber, String name, String type1, String type2,
                     String species, double height, double weight, 
@@ -45,6 +45,114 @@ class Pokemon {
         this.spAttack = spAttack;
         this.spDefense = spDefense;
         this.speed = speed;
+    }
+
+
+    //Getter
+    public int getDexNumber() {
+        return dexNumber;
+    }
+    public String getName() {
+        return name;
+    }
+    public String getType1() {
+        return type1;
+    }
+    public String getType2() {
+        return type2;
+    }
+    public String getSpecies() {
+        return species;
+    }
+    public double getHeight() {
+        return height;
+    }
+    public double getWeight() {
+        return weight;
+    }
+    public String getAbility1() {
+        return ability1;
+    }
+    public String getAbility2() {
+        return ability2;
+    }
+    public String getHiddenAbility() {
+        return hiddenAbility;
+    }
+    public int getHp() {
+        return hp;
+    }
+    public int getAttack() {
+        return attack;
+    }
+    public int getDefense() {
+        return defense;
+    }
+    public int getSpAttack() {
+        return spAttack;
+    }
+    public int getSpDefense() {
+        return spDefense;
+    }
+    public int getSpeed() {
+        return speed;
+    }
+    public int getTotal() {
+        return total;
+    }
+    
+    //Setter
+
+    public void setDexNumber(int dexNumber) {
+        this.dexNumber = dexNumber;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setType1(String type1) {
+        this.type1 = type1;
+    }
+    public void setType2(String type2) {
+        this.type2 = type2;
+    }
+    public void setSpecies(String species) {
+        this.species = species;
+    }
+    public void setHeight(double height) {
+        this.height = height;
+    }
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+    public void setAbility1(String ability1) {
+        this.ability1 = ability1;
+    }
+    public void setAbility2(String ability2) {
+        this.ability2 = ability2;
+    }
+    public void setHiddenAbility(String hiddenAbility) {
+        this.hiddenAbility = hiddenAbility;
+    }
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+    public void setAttack(int attack) {
+        this.attack = attack;
+    }
+    public void setDefense(int defense) {
+        this.defense = defense;
+    }
+    public void setSpAttack(int spAttack) {
+        this.spAttack = spAttack;
+    }
+    public void setSpDefense(int spDefense) {
+        this.spDefense = spDefense;
+    }
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     void display() {
@@ -149,7 +257,7 @@ class Pokemon {
 // }
 
 public class App {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException{
         ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
         InputStreamReader isr = new InputStreamReader(System.in);
         BufferedReader br = new BufferedReader(isr);
@@ -233,50 +341,50 @@ public class App {
                     System.out.print("Enter the Pokemon Number you want to update: ");
                     int update = Integer.parseInt(br.readLine()) - 1;
 
-                    for (int i = 0; i < pokedex.size(); i++) {
-                        if (update == i) {
-                            System.out.println("Updating Pokemon Number" + (i + 1));
-                            System.out.println("Please fill all the information of your Pokemon");
-                            System.out.print("Dex Number : ");
-                            pokedex.get(update).dexNumber = Integer.parseInt(br.readLine());
-                            System.out.print("Name : ");
-                            pokedex.get(update).name = br.readLine();
-                            System.out.print("Primary Type : ");
-                            pokedex.get(update).type1 = br.readLine();
-                            System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
-                            pokedex.get(update).type2 = br.readLine();
-                            System.out.print("Species : ");
-                            pokedex.get(update).species = br.readLine();
-                            System.out.print("Height : ");
-                            pokedex.get(update).height = Double.parseDouble(br.readLine());
-                            System.out.print("Weight : ");
-                            pokedex.get(update).weight = Double.parseDouble(br.readLine());
-                            System.out.print("Ability 1 : ");
-                            pokedex.get(update).ability1 = br.readLine();
-                            System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
-                            pokedex.get(update).ability2 = br.readLine();
-                            System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
-                            pokedex.get(update).hiddenAbility = br.readLine();
-                            System.out.print("HP : ");
-                            pokedex.get(update).hp = Integer.parseInt(br.readLine());
-                            System.out.print("Attack : ");
-                            pokedex.get(update).attack = Integer.parseInt(br.readLine());
-                            System.out.print("Defense : ");
-                            pokedex.get(update).defense = Integer.parseInt(br.readLine());
-                            System.out.print("Special Attack : ");
-                            pokedex.get(update).spAttack = Integer.parseInt(br.readLine());
-                            System.out.print("Special Defense : ");
-                            pokedex.get(update).spDefense = Integer.parseInt(br.readLine());
-                            System.out.print("Speed : ");
-                            pokedex.get(update).speed = Integer.parseInt(br.readLine());
-                            
-                            System.out.println("Pokemon Number" + (i + 1) + " has been updated");
-
+                    if (update >= 0 && update < pokedex.size()) {
+                        System.out.println("Updating Pokemon Number " + (update + 1));
+                        Pokemon pokemonToUpdate = pokedex.get(update);
+            
+                        System.out.println("Please fill all the information of your Pokemon");
+                        System.out.print("Dex Number : ");
+                        pokemonToUpdate.setDexNumber(Integer.parseInt(br.readLine()));
+                        System.out.print("Name : ");
+                        pokemonToUpdate.setName(br.readLine());
+                        System.out.print("Primary Type : ");
+                        pokemonToUpdate.setType1(br.readLine());
+                        System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
+                        pokemonToUpdate.setType2(br.readLine());
+                        System.out.print("Species : ");
+                        pokemonToUpdate.setSpecies(br.readLine());
+                        System.out.print("Height : ");
+                        pokemonToUpdate.setHeight(Double.parseDouble(br.readLine()));
+                        System.out.print("Weight : ");
+                        pokemonToUpdate.setWeight(Double.parseDouble(br.readLine()));
+                        System.out.print("Ability 1 : ");
+                        pokemonToUpdate.setAbility1(br.readLine());
+                        System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
+                        pokemonToUpdate.setAbility2(br.readLine());
+                        System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
+                        pokemonToUpdate.setHiddenAbility(br.readLine());
+                        System.out.print("HP : ");
+                        pokemonToUpdate.setHp(Integer.parseInt(br.readLine()));
+                        System.out.print("Attack : ");
+                        pokemonToUpdate.setAttack(Integer.parseInt(br.readLine()));
+                        System.out.print("Defense : ");
+                        pokemonToUpdate.setDefense(Integer.parseInt(br.readLine()));
+                        System.out.print("Special Attack : ");
+                        pokemonToUpdate.setSpAttack(Integer.parseInt(br.readLine()));
+                        System.out.print("Special Defense : ");
+                        pokemonToUpdate.setSpDefense(Integer.parseInt(br.readLine()));
+                        System.out.print("Speed : ");
+                        pokemonToUpdate.setSpeed(Integer.parseInt(br.readLine()));
+            
+                        System.out.println("Pokemon Number " + (update + 1) + " has been updated");
                         } else {
-                            System.out.println("Pokemon Number" + (i + 1) + " did not exist");
+                            System.out.println("Pokemon Number" + (update + 1) + " did not exist");
                         }
                     }
-                }
+                
             } else if (menu.equals("4")) {
                 if (pokedex.size() == 0) {
                     System.out.println("Pokedex is empty");

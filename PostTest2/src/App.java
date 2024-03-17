@@ -178,83 +178,100 @@ class Pokemon {
         System.out.println("========================================");
     }
 }
-// class TypeChart {
-//     String type;
-//     String[] weaknesses;
-//     String[] resistances;
-//     String[] immunities;
+class TypeChart {
+    String type;
+    String[] weaknesses;
+    String[] resistances;
+    String[] immunities;
 
-//     public TypeChart(String type, String[] weaknesses, String[] resistances, String[] immunities) {
-//         this.type = type;
-//         this.weaknesses = weaknesses;
-//         this.resistances = resistances;
-//         this.immunities = immunities;
-//     }
-// }
+    public TypeChart(String type, String[] weaknesses, String[] resistances, String[] immunities) {
+        this.type = type;
+        this.weaknesses = weaknesses;
+        this.resistances = resistances;
+        this.immunities = immunities;
+    }
 
-// class Types {
-//     TypeChart Normal = new TypeChart("Normal", new String[]{"Fighting"}, new String[]{}, new String[]{"Ghost"});
-//     TypeChart Fire = new TypeChart("Fire", new String[]{"Water", "Rock", "Ground"}, new String[]{"Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"}, new String[]{});
-//     TypeChart Water = new TypeChart("Water", new String[]{"Electric", "Grass"}, new String[]{"Water", "Fire", "Ice", "Steel"}, new String[]{});
-//     TypeChart Grass = new TypeChart("Grass", new String[]{"Fire", "Ice", "Poison", "Flying", "Bug"}, new String[]{"Water", "Electric", "Grass", "Ground"}, new String[]{});
-//     TypeChart Electric = new TypeChart("Electric", new String[]{"Ground"}, new String[]{"Electric", "Flying", "Steel"}, new String[]{});
-//     TypeChart Ice = new TypeChart("Ice", new String[]{"Fire", "Fighting", "Rock", "Steel"}, new String[]{"Ice"}, new String[]{});
-//     TypeChart Fighting = new TypeChart("Fighting", new String[]{"Flying", "Psychic", "Fairy"}, new String[]{"Bug", "Rock", "Dark"}, new String[]{});
-//     TypeChart Poison = new TypeChart("Poison", new String[]{"Ground", "Psychic"}, new String[]{"Grass", "Fighting", "Poison", "Bug", "Fairy"}, new String[]{});
-//     TypeChart Ground = new TypeChart("Ground", new String[]{"Water", "Grass", "Ice"}, new String[]{"Poison", "Rock"}, new String[]{"Electric"});
-//     TypeChart Flying = new TypeChart("Flying", new String[]{"Electric", "Ice", "Rock"}, new String[]{"Grass", "Fighting ", "Bug"}, new String[]{"Ground"});
-//     TypeChart Psychic = new TypeChart("Psychic", new String[]{"Bug", "Ghost", "Dark"}, new String[]{"Fighting", "Psychic"}, new String[]{});
-//     TypeChart Bug = new TypeChart("Bug", new String[]{"Fire", "Flying", "Rock"}, new String[]{"Grass", "Fighting", "Ground"}, new String[]{});
-//     TypeChart Rock = new TypeChart("Rock", new String[]{"Water", "Grass", "Fighting", "Ground", "Steel"}, new String[]{"Normal", "Fire", "Poison", "Flying"}, new String[]{});
-//     TypeChart Ghost = new TypeChart("Ghost", new String[]{"Ghost", "Dark"}, new String[]{"Poison", "Bug"}, new String[]{"Normal", "Fighting"});
-//     TypeChart Dragon = new TypeChart("Dragon", new String[]{"Ice", "Dragon", "Fairy"}, new String[]{"Fire", "Water", "Electric", "Grass"}, new String[]{});
-//     TypeChart Dark = new TypeChart("Dark", new String[]{"Fighting", "Bug", "Fairy"}, new String[]{"Ghost", "Dark"}, new String[]{"Psychic"});
-//     TypeChart Steel = new TypeChart("Steel", new String[]{"Fire", "Fighting", "Ground"}, new String[]{"Normal", "Grass", "Ice", "Flying", "Psychic", "Bug", "Rock", "Dragon", "Steel", "Fairy"}, new String[]{"Poison"});
-//     TypeChart Fairy = new TypeChart("Fairy", new String[]{"Poison", "Steel"}, new String[]{"Fighting", "Bug", "Dark"}, new String[]{"Dragon"});
+    public void display() {
+        System.out.println("Weakness : " + format(weaknesses));
+        System.out.println("Resistances : " + format(resistances));
+        System.out.println("Immunities : " + format(immunities));
+    }
 
-//     public TypeChart getType(String type) {
-//         switch (type) {
-//             case "Normal":
-//                 return Normal;
-//             case "Fire":
-//                 return Fire;
-//             case "Water":
-//                 return Water;
-//             case "Grass":
-//                 return Grass;
-//             case "Electric":
-//                 return Electric;
-//             case "Ice":
-//                 return Ice;
-//             case "Fighting":
-//                 return Fighting;
-//             case "Poison":
-//                 return Poison;
-//             case "Ground":
-//                 return Ground;
-//             case "Flying":
-//                 return Flying;
-//             case "Psychic":
-//                 return Psychic;
-//             case "Bug":
-//                 return Bug;
-//             case "Rock":
-//                 return Rock;
-//             case "Ghost":
-//                 return Ghost;
-//             case "Dragon":
-//                 return Dragon;
-//             case "Dark":
-//                 return Dark;
-//             case "Steel":
-//                 return Steel;
-//             case "Fairy":
-//                 return Fairy;
-//             default:
-//                 return null;
-//         }
-//     }
-// }
+    public String format(String[] list) {
+        StringBuilder formatType =new StringBuilder();
+        for (int i = 0; i < list.length; i++) {
+            if (i > 0) {
+                formatType.append(", ");
+            }
+            formatType.append(list[i]);
+        }
+        return formatType.toString();
+    }
+}
+
+class Types {
+    TypeChart Normal = new TypeChart("Normal", new String[]{"Fighting"}, new String[]{}, new String[]{"Ghost"});
+    TypeChart Fire = new TypeChart("Fire", new String[]{"Water", "Rock", "Ground"}, new String[]{"Fire", "Grass", "Ice", "Bug", "Steel", "Fairy"}, new String[]{});
+    TypeChart Water = new TypeChart("Water", new String[]{"Electric", "Grass"}, new String[]{"Water", "Fire", "Ice", "Steel"}, new String[]{});
+    TypeChart Grass = new TypeChart("Grass", new String[]{"Fire", "Ice", "Poison", "Flying", "Bug"}, new String[]{"Water", "Electric", "Grass", "Ground"}, new String[]{});
+    TypeChart Electric = new TypeChart("Electric", new String[]{"Ground"}, new String[]{"Electric", "Flying", "Steel"}, new String[]{});
+    TypeChart Ice = new TypeChart("Ice", new String[]{"Fire", "Fighting", "Rock", "Steel"}, new String[]{"Ice"}, new String[]{});
+    TypeChart Fighting = new TypeChart("Fighting", new String[]{"Flying", "Psychic", "Fairy"}, new String[]{"Bug", "Rock", "Dark"}, new String[]{});
+    TypeChart Poison = new TypeChart("Poison", new String[]{"Ground", "Psychic"}, new String[]{"Grass", "Fighting", "Poison", "Bug", "Fairy"}, new String[]{});
+    TypeChart Ground = new TypeChart("Ground", new String[]{"Water", "Grass", "Ice"}, new String[]{"Poison", "Rock"}, new String[]{"Electric"});
+    TypeChart Flying = new TypeChart("Flying", new String[]{"Electric", "Ice", "Rock"}, new String[]{"Grass", "Fighting ", "Bug"}, new String[]{"Ground"});
+    TypeChart Psychic = new TypeChart("Psychic", new String[]{"Bug", "Ghost", "Dark"}, new String[]{"Fighting", "Psychic"}, new String[]{});
+    TypeChart Bug = new TypeChart("Bug", new String[]{"Fire", "Flying", "Rock"}, new String[]{"Grass", "Fighting", "Ground"}, new String[]{});
+    TypeChart Rock = new TypeChart("Rock", new String[]{"Water", "Grass", "Fighting", "Ground", "Steel"}, new String[]{"Normal", "Fire", "Poison", "Flying"}, new String[]{});
+    TypeChart Ghost = new TypeChart("Ghost", new String[]{"Ghost", "Dark"}, new String[]{"Poison", "Bug"}, new String[]{"Normal", "Fighting"});
+    TypeChart Dragon = new TypeChart("Dragon", new String[]{"Ice", "Dragon", "Fairy"}, new String[]{"Fire", "Water", "Electric", "Grass"}, new String[]{});
+    TypeChart Dark = new TypeChart("Dark", new String[]{"Fighting", "Bug", "Fairy"}, new String[]{"Ghost", "Dark"}, new String[]{"Psychic"});
+    TypeChart Steel = new TypeChart("Steel", new String[]{"Fire", "Fighting", "Ground"}, new String[]{"Normal", "Grass", "Ice", "Flying", "Psychic", "Bug", "Rock", "Dragon", "Steel", "Fairy"}, new String[]{"Poison"});
+    TypeChart Fairy = new TypeChart("Fairy", new String[]{"Poison", "Steel"}, new String[]{"Fighting", "Bug", "Dark"}, new String[]{"Dragon"});
+
+    public TypeChart getType(String type) {
+        switch (type) {
+            case "Normal":
+                return Normal;
+            case "Fire":
+                return Fire;
+            case "Water":
+                return Water;
+            case "Grass":
+                return Grass;
+            case "Electric":
+                return Electric;
+            case "Ice":
+                return Ice;
+            case "Fighting":
+                return Fighting;
+            case "Poison":
+                return Poison;
+            case "Ground":
+                return Ground;
+            case "Flying":
+                return Flying;
+            case "Psychic":
+                return Psychic;
+            case "Bug":
+                return Bug;
+            case "Rock":
+                return Rock;
+            case "Ghost":
+                return Ghost;
+            case "Dragon":
+                return Dragon;
+            case "Dark":
+                return Dark;
+            case "Steel":
+                return Steel;
+            case "Fairy":
+                return Fairy;
+            default:
+                return null;
+        }
+    }
+}
 
 public class App {
     public static void main(String[] args) throws IOException{
@@ -269,17 +286,40 @@ public class App {
                 2. View Pokedex
                 3. Update Pokedex
                 4. Release Pokemon
-                5. Exit
+                5. Type Chart
+                6. Exit
                 """);
 
             System.out.print("Select: ");
             String menu = br.readLine();
 
+            int dexNumber = 0;
             if (menu.equals("1")) {
                 System.out.println("Adding Pokemon to Pokedex");
                 System.out.println("Please fill all the information of your Pokemon");
                 System.out.print("Dex Number : ");
-                int dexNumber = Integer.parseInt(br.readLine());
+                    if (pokedex.size() > 0) {
+                        dexNumber = Integer.parseInt(br.readLine());
+                        for (int i = 0; i < pokedex.size(); i++) {
+                            if (dexNumber == pokedex.get(i).getDexNumber()) {
+                                System.out.println("Pokemon with the same Dex Number already exists");
+                                System.out.println("Please enter a different Dex Number");
+                                dexNumber = Integer.parseInt(br.readLine());
+                            }
+                        }
+                    } else {
+                        while (true) {
+                            String input = br.readLine();
+                            if (input.matches("\\d+")) {
+                                dexNumber = Integer.parseInt(input);
+                                break;
+                            } else {
+                                System.out.println("Invalid Dex Number");
+                                System.out.print("Dex Number : ");
+                                continue; 
+                            }
+                        }
+                    }
                 System.out.print("Name : ");
                 String name = br.readLine();
                 System.out.print("Primary Type : ");
@@ -410,6 +450,26 @@ public class App {
                     }
                 }
             } else if (menu.equals("5")) {
+                System.out.println("Type Chart");
+                Types typeChart = new Types();
+                System.out.print("Enter the Pokemon Type you want to check");
+                System.out.println("Primary Type :");
+                String type1 = br.readLine();
+                System.out.println("Secondary Type (Press Enter if the Pokemon is Mono Type) :");
+                String type2 = br.readLine();
+                TypeChart primaryType = typeChart.getType(type1);
+                TypeChart secondaryType = typeChart.getType(type2);
+                if (type2.equals("")) {
+                    System.out.println("Primary Type:");
+                    primaryType.display();
+                } else {
+                    System.out.println("Primary Type:");
+                    primaryType.display();
+                    System.out.println("Secondary Type:");
+                    secondaryType.display();
+                }
+                
+            } else if (menu.equals("6")) {
                 System.out.println("Exiting Pokedex");
                 break;
             } else {

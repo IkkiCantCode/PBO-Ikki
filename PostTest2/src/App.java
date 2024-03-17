@@ -46,8 +46,6 @@ class Pokemon {
         this.spDefense = spDefense;
         this.speed = speed;
     }
-
-
     //Getter
     public int getDexNumber() {
         return dexNumber;
@@ -102,7 +100,6 @@ class Pokemon {
     }
     
     //Setter
-
     public void setDexNumber(int dexNumber) {
         this.dexNumber = dexNumber;
     }
@@ -161,9 +158,9 @@ class Pokemon {
         System.out.println("Dex Number: " + dexNumber);
         System.out.println("Name: " + name);
         System.out.println("Type: " + type1 + " " + type2);
-        System.out.println("Species: " + species + "Pokemon");
-        System.out.println("Height: " + height + "m");
-        System.out.println("Weight: " + weight + "kg");
+        System.out.println("Species: " + species + " Pokemon");
+        System.out.println("Height: " + height + " m");
+        System.out.println("Weight: " + weight + " kg");
         System.out.println("Abilities: " + ability1 + " " + ability2);
         System.out.println("Hidden Ability: " + hiddenAbility);
         System.out.println("========================================");
@@ -192,7 +189,7 @@ class TypeChart {
     }
 
     public void display() {
-        System.out.println("Weakness : " + format(weaknesses));
+        System.out.println("Weaknesses : " + format(weaknesses));
         System.out.println("Resistances : " + format(resistances));
         System.out.println("Immunities : " + format(immunities));
     }
@@ -476,7 +473,29 @@ public class App {
             
                         System.out.println("Please fill all the information of your Pokemon");
                         System.out.print("Dex Number : ");
-                        pokemonToUpdate.setDexNumber(Integer.parseInt(br.readLine()));
+                            if (pokedex.size() > 0) {
+                                dexNumber = Integer.parseInt(br.readLine());
+                                for (int i = 0; i < pokedex.size(); i++) {
+                                    if (dexNumber == pokedex.get(i).getDexNumber()) {
+                                        System.out.println("Pokemon with the same Dex Number already exists");
+                                        System.out.println("Please enter a different Dex Number");
+                                        dexNumber = Integer.parseInt(br.readLine());
+                                    }
+                                }
+                            } else {
+                                while (true) {
+                                    String input = br.readLine();
+                                    if (input.matches("\\d+")) {
+                                        dexNumber = Integer.parseInt(input);
+                                        break;
+                                    } else {
+                                        System.out.println("Invalid Dex Number");
+                                        System.out.print("Dex Number : ");
+                                        continue; 
+                                    }
+                                }
+                            }
+                        pokemonToUpdate.setDexNumber(dexNumber);
                         System.out.print("Name : ");
                         pokemonToUpdate.setName(br.readLine());
                         System.out.print("Primary Type : ");
@@ -486,9 +505,31 @@ public class App {
                         System.out.print("Species : ");
                         pokemonToUpdate.setSpecies(br.readLine());
                         System.out.print("Height : ");
-                        pokemonToUpdate.setHeight(Double.parseDouble(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+                                    height = Double.parseDouble(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Height");
+                                    System.out.print("Height : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setHeight(height);
                         System.out.print("Weight : ");
-                        pokemonToUpdate.setWeight(Double.parseDouble(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+                                    weight = Double.parseDouble(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Weight");
+                                    System.out.print("Weight : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setWeight(weight);
                         System.out.print("Ability 1 : ");
                         pokemonToUpdate.setAbility1(br.readLine());
                         System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
@@ -496,17 +537,83 @@ public class App {
                         System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
                         pokemonToUpdate.setHiddenAbility(br.readLine());
                         System.out.print("HP : ");
-                        pokemonToUpdate.setHp(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    hp = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid HP");
+                                    System.out.print("HP : ");
+                                    continue;
+                                }
+                            }   
+                        pokemonToUpdate.setHp(hp);
                         System.out.print("Attack : ");
-                        pokemonToUpdate.setAttack(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    attack = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Attack");
+                                    System.out.print("Attack : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setAttack(attack);
                         System.out.print("Defense : ");
-                        pokemonToUpdate.setDefense(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    defense = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Defense");
+                                    System.out.print("Defense : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setDefense(defense);
                         System.out.print("Special Attack : ");
-                        pokemonToUpdate.setSpAttack(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    spAttack = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Special Attack");
+                                    System.out.print("Special Attack : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setSpAttack(spAttack);
                         System.out.print("Special Defense : ");
-                        pokemonToUpdate.setSpDefense(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    spDefense = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Special Defense");
+                                    System.out.print("Special Defense : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setSpDefense(spDefense);
                         System.out.print("Speed : ");
-                        pokemonToUpdate.setSpeed(Integer.parseInt(br.readLine()));
+                            while (true) {
+                                String input = br.readLine();
+                                if (input.matches("\\d+")) {
+                                    speed = Integer.parseInt(input);
+                                    break;
+                                } else {
+                                    System.out.println("Invalid Speed");
+                                    System.out.print("Speed : ");
+                                    continue;
+                                }
+                            }
+                        pokemonToUpdate.setSpeed(speed);
             
                         System.out.println("Pokemon Number " + (update + 1) + " has been updated");
                         } else {

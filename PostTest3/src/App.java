@@ -13,16 +13,21 @@ public class App {
 
         while (true) {
             System.out.println("""
-                Pokedex Menu
+                Pokemon & Trainer Information System
+                ===================================
+                ===== Pokemon =====
                 1. Add Pokemon 
                 2. View Pokedex
                 3. Update Pokedex
                 4. Release Pokemon
+                ===== Trainer =====
                 5. Add Trainer
                 6. View Trainer
                 7. Update Trainer
                 8. Delete Trainer
+                ===== Type Chart =====
                 9. Type Chart
+                ===== Exit =====
                 0. Exit
                 """);
 
@@ -265,6 +270,7 @@ public class App {
         int spDefense = readIntegerInput(br, "Special Defense : ");
         int speed = readIntegerInput(br, "Speed : ");
     
+        //Untuk mengupdate data pokemon
         pokemonToUpdate.setRegionName(regionName);
         pokemonToUpdate.setGeneration(generation);
         pokemonToUpdate.setGameIntroduced(gameIntroduced);
@@ -454,8 +460,105 @@ public class App {
         }
     }
 
-    private static void typeChart() {
-        System.out.println("=====Type Chart=====");
-        System.out.println("Type Chart is not available yet");
+    private static void typeChart() throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        while (true) {
+            System.out.println("""
+                ===== Type Chart Menu =====
+                1. Check Type Defenses
+                2. Check Type Effectiveness
+                3. View All Pokemon Types
+                0. Exit
+                ===========================
+                """);
+
+            System.out.print("Select: ");
+            String menu = br.readLine();
+
+            switch (menu) {
+                case "1":
+                    typeDefenses(br);
+                    break;
+                case "2":
+                    typeEffectiveness(br);
+                    break;
+                case "3":
+                    viewTypes();
+                    break;
+                case "0":
+                    System.out.println("Exiting Type Chart Menu");
+                    return;
+                default:
+                    System.out.println("Invalid input. Please enter a valid option.");
+            }
+        }
+    }
+    
+    private static void typeDefenses(BufferedReader br) throws IOException {
+        System.out.println("===== Type Defenses =====");
+        System.out.print("Enter Pokemon Type 1: ");
+        String type1 = br.readLine();
+        System.out.print("Enter Pokemon Type 2 (Press Enter if Mono Type): ");
+        String type2 = br.readLine();
+
+        typeChart typeChart1 = getTypeChart(type1);
+        typeChart typeChart2 = getTypeChart(type2);
+
+        if (typeChart1 == null && typeChart2 == null) {
+            System.out.println("Invalid Pokemon types.");
+            return;
+        }
+
+        System.out.println("Type effectiveness for " + type1 + (type2.isEmpty() ? "" : " & " + type2) + ":");
+
+        String[] combinedWeaknesses = combineArrays(typeChart1 != null ? typeChart1.weaknesses : new String[]{},
+                typeChart2 != null ? typeChart2.weaknesses : new String[]{});
+        String[] combinedResistances = combineArrays(typeChart1 != null ? typeChart1.resistances : new String[]{},
+                typeChart2 != null ? typeChart2.resistances : new String[]{});
+        String[] combinedImmunities = combineArrays(typeChart1 != null ? typeChart1.immunities : new String[]{},
+                typeChart2 != null ? typeChart2.immunities : new String[]{});
+
+        System.out.println("Weaknesses: " + formatTypeEffectiveness(combinedWeaknesses));
+        System.out.println("Resistances: " + formatTypeEffectiveness(combinedResistances));
+        System.out.println("Immunities: " + formatTypeEffectiveness(combinedImmunities));
+    }
+
+    private static typeChart getTypeChart(String type) {
+        Types types = new Types();
+        return types.getType(type);
+    }
+
+    private static String[] combineArrays(String[] array1, String[] array2) {
+        String[] combinedArray = new String[array1.length + array2.length];
+        System.arraycopy(array1, 0, combinedArray, 0, array1.length);
+        System.arraycopy(array2, 0, combinedArray, array1.length, array2.length);
+        return combinedArray;
+    }
+
+    private static String formatTypeEffectiveness(String[] types) {
+        StringBuilder formattedTypes = new StringBuilder();
+        for (String type : types) {
+            if (formattedTypes.length() > 0) {
+                formattedTypes.append(", ");
+            }
+            formattedTypes.append(type);
+        }
+        return formattedTypes.toString();
+    
+    }   
+    
+    private static void typeEffectiveness(BufferedReader br) throws IOException {
+        System.out.println("======== Type Effectiveness ========");
+        System.out.println("Soon will be implemented");
+        System.out.println("Please check back next PostTest");
+        System.out.println("====================================");
+        
+    }
+
+    private static void viewTypes() {
+        System.out.println("=====Viewing All Pokemon Types=====");
+        System.out.println("Normal, Fire, Water, Grass, Electric, Ice, Fighting, Poison, Ground, Flying, Psychic, Bug, Rock, Ghost, Dragon, Dark, Steel, Fairy");
+        System.out.println("====================================");
     }
 }

@@ -1,4 +1,4 @@
-public class Pokemon {
+public class Pokemon extends regionGen {
     private int dexNumber;
     private String name;
     private String type1;
@@ -21,7 +21,8 @@ public class Pokemon {
                     String species, double height, double weight, 
                     String ability1, String ability2, String hiddenAbility, 
                     int hp, int attack, int defense, int spAttack, int spDefense, 
-                    int speed) {
+                    int speed, String regionName, int generation, String gameIntroduced) {
+        super(regionName, generation, gameIntroduced);
         this.dexNumber = dexNumber;
         this.name = name;
         this.type1 = type1;

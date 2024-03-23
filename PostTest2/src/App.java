@@ -3,7 +3,6 @@ import java.util.ArrayList;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
-import java.io.InputStream;
 
 class Pokemon {
     //Private access modifier untuk membatasi akses ke class tersebut

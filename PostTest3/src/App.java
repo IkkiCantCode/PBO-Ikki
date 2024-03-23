@@ -29,16 +29,6 @@ public class App {
             System.out.print("Select: ");
             String menu = br.readLine();
 
-            int dexNumber = 0;
-            double height = 0.0;
-            double weight = 0.0;
-            int hp = 0;
-            int attack = 0;
-            int defense = 0;
-            int spAttack = 0;
-            int spDefense = 0;
-            int speed = 0;
-
             if (menu.equals("1")) {
                 addPokemon(pokedex, br);
             } else if (menu.equals("2")) {
@@ -48,7 +38,7 @@ public class App {
             } else if (menu.equals("4")) {
                 releasePokemon(pokedex, br);
             } else if (menu.equals("5")) {
-                addTrainer(trainers, br)
+                addTrainer(trainers, br);
             } else if (menu.equals("6")) {
                 viewTrainers(trainers);
             } else if (menu.equals("7")) {
@@ -75,12 +65,21 @@ public class App {
         System.out.print("Game Introduced: ");
         String gameIntroduced = br.readLine();
         int dexNumber;
+
+        boolean dexExists;
         while (true) {
             System.out.print("Dex Number : ");
             String input = br.readLine();
             if (input.matches("\\d+")) {
                 dexNumber = Integer.parseInt(input);
-                boolean dexExists = pokedex.stream().anyMatch(p -> p.getDexNumber() == dexNumber);
+                dexExists = false;
+                int tempDexNumber = dexNumber; 
+                for (Pokemon p : pokedex) {
+                    if (p.getDexNumber() == tempDexNumber) {
+                        dexExists = true;
+                        break;
+                    }
+                }
                 if (dexExists) {
                     System.out.println("Pokemon with the same Dex Number already exists");
                     continue;
@@ -226,7 +225,13 @@ public class App {
     
         Pokemon pokemonToUpdate = pokedex.get(update);
         System.out.println("Updating Pokemon Number " + (update + 1));
-    
+        
+        System.out.println("Region Name: ");
+        String regionName = br.readLine();
+        System.out.println("Generation: ");
+        int generation = Integer.parseInt(br.readLine());
+        System.out.println("Game Introduced: ");
+        String gameIntroduced = br.readLine();
         System.out.print("Dex Number : ");
         int dexNumber = Integer.parseInt(br.readLine());
         for (Pokemon pokemon : pokedex) {
@@ -245,11 +250,13 @@ public class App {
         String type2 = br.readLine();
         System.out.print("Species : ");
         String species = br.readLine();
-    
         double height = readDoubleInput(br, "Height : ");
         double weight = readDoubleInput(br, "Weight : ");
+        System.out.println("Ability 1 : ");
         String ability1 = br.readLine();
+        System.out.println("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
         String ability2 = br.readLine();
+        System.out.println("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
         String hiddenAbility = br.readLine();
         int hp = readIntegerInput(br, "HP : ");
         int attack = readIntegerInput(br, "Attack : ");
@@ -258,6 +265,9 @@ public class App {
         int spDefense = readIntegerInput(br, "Special Defense : ");
         int speed = readIntegerInput(br, "Speed : ");
     
+        pokemonToUpdate.setRegionName(regionName);
+        pokemonToUpdate.setGeneration(generation);
+        pokemonToUpdate.setGameIntroduced(gameIntroduced);
         pokemonToUpdate.setDexNumber(dexNumber);
         pokemonToUpdate.setName(name);
         pokemonToUpdate.setType1(type1);
@@ -278,7 +288,7 @@ public class App {
         System.out.println("Pokemon Number " + (update + 1) + " has been updated");
     }
     
-
+    //Error Handling untuk input double dan integer
     private static double readDoubleInput(BufferedReader br, String prompt) throws IOException {
         double value;
         while (true) {
@@ -371,7 +381,7 @@ public class App {
         System.out.println("=====Viewing Trainers=====");
         for (int i = 0; i < trainers.size(); i++) {
             System.out.println("Trainer Number: " + (i + 1));
-            System.out.println(trainers.get(i));
+            trainers.get(i).display();
         }
     }
 
@@ -444,5 +454,8 @@ public class App {
         }
     }
 
-
+    private static void typeChart() {
+        System.out.println("=====Type Chart=====");
+        System.out.println("Type Chart is not available yet");
+    }
 }

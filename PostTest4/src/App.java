@@ -498,10 +498,8 @@ public class App {
         String type2 = br.readLine();
     
         if (type2.isEmpty()) {
-            // If the second type is not specified (mono-type), call the single-parameter method
             typeDefenses(type1);
         } else {
-            // If both types are specified (dual-type), call the two-parameter method
             typeDefenses(type1, type2);
         }
     }

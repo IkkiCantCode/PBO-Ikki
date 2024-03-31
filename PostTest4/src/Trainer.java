@@ -56,6 +56,7 @@ public class Trainer extends regionGen{
         this.trainerDesc = trainerDesc;
     }
 
+    //Override method display dari class regionGen
     @Override
     public void display() {
         super.display();

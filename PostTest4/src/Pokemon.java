@@ -146,6 +146,7 @@ public class Pokemon extends regionGen {
         this.total = total;
     }
 
+    //Override method display dari class regionGen
     @Override
     public void display() {
         super.display();

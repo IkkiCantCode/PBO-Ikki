@@ -496,24 +496,54 @@ public class App {
         String type1 = br.readLine();
         System.out.print("Enter Pokemon Type 2 (Press Enter if Mono Type): ");
         String type2 = br.readLine();
-
+    
+        if (type2.isEmpty()) {
+            // If the second type is not specified (mono-type), call the single-parameter method
+            typeDefenses(type1);
+        } else {
+            // If both types are specified (dual-type), call the two-parameter method
+            typeDefenses(type1, type2);
+        }
+    }
+    
+    // Overloaded Method untuk pokemon memiliki 1 type
+    private static void typeDefenses(String type1) {
+        typeChart typeChart1 = getTypeChart(type1);
+    
+        if (typeChart1 == null) {
+            System.out.println("Invalid Pokemon type.");
+            return;
+        }
+    
+        System.out.println("Type effectiveness for " + type1 + ":");
+    
+        System.out.println("Weaknesses: " + formatTypeEffectiveness(typeChart1.weaknesses));
+        System.out.println("Resistances: " + formatTypeEffectiveness(typeChart1.resistances));
+        System.out.println("Immunities: " + formatTypeEffectiveness(typeChart1.immunities));
+    }
+    
+    // Overloaded Method untuk pokemon memiliki 2 type
+    private static void typeDefenses(String type1, String type2) {
         typeChart typeChart1 = getTypeChart(type1);
         typeChart typeChart2 = getTypeChart(type2);
-
+    
         if (typeChart1 == null && typeChart2 == null) {
             System.out.println("Invalid Pokemon types.");
             return;
         }
-
-        System.out.println("Type effectiveness for " + type1 + (type2.isEmpty() ? "" : " & " + type2) + ":");
-
-        String[] combinedWeaknesses = combineArrays(typeChart1 != null ? typeChart1.weaknesses : new String[]{},
-                typeChart2 != null ? typeChart2.weaknesses : new String[]{});
-        String[] combinedResistances = combineArrays(typeChart1 != null ? typeChart1.resistances : new String[]{},
-                typeChart2 != null ? typeChart2.resistances : new String[]{});
-        String[] combinedImmunities = combineArrays(typeChart1 != null ? typeChart1.immunities : new String[]{},
-                typeChart2 != null ? typeChart2.immunities : new String[]{});
-
+    
+        System.out.println("Type effectiveness for " + type1 + " & " + type2 + ":");
+    
+        String[] combinedWeaknesses = combineArrays(
+            typeChart1 != null ? typeChart1.weaknesses : new String[]{},
+            typeChart2 != null ? typeChart2.weaknesses : new String[]{});
+        String[] combinedResistances = combineArrays(
+            typeChart1 != null ? typeChart1.resistances : new String[]{},
+            typeChart2 != null ? typeChart2.resistances : new String[]{});
+        String[] combinedImmunities = combineArrays(
+            typeChart1 != null ? typeChart1.immunities : new String[]{},
+            typeChart2 != null ? typeChart2.immunities : new String[]{});
+    
         System.out.println("Weaknesses: " + formatTypeEffectiveness(combinedWeaknesses));
         System.out.println("Resistances: " + formatTypeEffectiveness(combinedResistances));
         System.out.println("Immunities: " + formatTypeEffectiveness(combinedImmunities));

@@ -462,13 +462,11 @@ public class App {
 
     private static void typeChart() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
         while (true) {
             System.out.println("""
                 ===== Type Chart Menu =====
                 1. Check Type Defenses
-                2. Check Type Effectiveness
-                3. View All Pokemon Types
+                2. View All Pokemon Types
                 0. Exit
                 ===========================
                 """);
@@ -481,9 +479,6 @@ public class App {
                     typeDefenses(br);
                     break;
                 case "2":
-                    typeEffectiveness(br);
-                    break;
-                case "3":
                     viewTypes();
                     break;
                 case "0":
@@ -546,15 +541,7 @@ public class App {
         }
         return formattedTypes.toString();
     
-    }   
-    
-    private static void typeEffectiveness(BufferedReader br) throws IOException {
-        System.out.println("======== Type Effectiveness ========");
-        System.out.println("Soon will be implemented");
-        System.out.println("Please check back next PostTest");
-        System.out.println("====================================");
-        
-    }
+    }  
 
     private static void viewTypes() {
         System.out.println("=====Viewing All Pokemon Types=====");

@@ -30,6 +30,12 @@ public class regionGen {
     public void setGameIntroduced(String gameIntroduced) {
         this.gameIntroduced = gameIntroduced;
     }
+
+    public void display() {
+        System.out.println("Region Name: " + regionName);
+        System.out.println("Generation: " + generation);
+        System.out.println("Game Introduced: " + gameIntroduced);
+    }
 }
 
 

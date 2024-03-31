@@ -56,11 +56,13 @@ public class Trainer extends regionGen{
         this.trainerDesc = trainerDesc;
     }
 
+    @Override
     public void display() {
+        super.display();
         System.out.println("====================================");
         System.out.println("Name : " + name);
         System.out.println("Age : " + age);
-        System.out.println("Money : " + money);
+        System.out.println("Money : $" + money);
         System.out.println("Trainer Class : " + trainerClass);
         System.out.println("Trainer Description : " + trainerDesc);
         System.out.println("====================================");

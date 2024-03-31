@@ -146,7 +146,9 @@ public class Pokemon extends regionGen {
         this.total = total;
     }
 
-    void display() {
+    @Override
+    public void display() {
+        super.display();
         total = hp + attack + defense + spAttack + spDefense + speed;
         System.out.println("========================================");
         System.out.println("Dex Number: " + dexNumber);

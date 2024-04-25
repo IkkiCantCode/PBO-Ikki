@@ -1,4 +1,4 @@
-public class regionGen {
+public abstract class regionGen {
     private String regionName;
     private int generation;
     private String gameIntroduced;
@@ -37,6 +37,5 @@ public class regionGen {
         System.out.println("Game Introduced: " + gameIntroduced);
     }
 }
-
 
 

@@ -4,12 +4,12 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
-public class App {
+public final class App {
+    private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
     public static void main(String[] args) throws IOException {
-        ArrayList<Pokemon> pokedex = new ArrayList<Pokemon>();
-        ArrayList<Trainer> trainers = new ArrayList<Trainer>();
-        InputStreamReader isr = new InputStreamReader(System.in);
-        BufferedReader br = new BufferedReader(isr);
+        ArrayList<PokemonConcrete> pokedex = new ArrayList<>();
+        ArrayList<TrainerConcrete> trainers = new ArrayList<>();
 
         while (true) {
             System.out.println("""
@@ -35,24 +35,24 @@ public class App {
             String menu = br.readLine();
 
             if (menu.equals("1")) {
-                addPokemon(pokedex, br);
+                addPokemon(pokedex);
             } else if (menu.equals("2")) {
                 viewPokedex(pokedex);
             } else if (menu.equals("3")) {
-                updatePokedex(pokedex, br);
+                updatePokedex(pokedex);
             } else if (menu.equals("4")) {
-                releasePokemon(pokedex, br);
+                releasePokemon(pokedex);
             } else if (menu.equals("5")) {
-                addTrainer(trainers, br);
+                addTrainer(trainers);
             } else if (menu.equals("6")) {
                 viewTrainers(trainers);
             } else if (menu.equals("7")) {
-                updateTrainer(trainers, br);
+                updateTrainer(trainers);
             } else if (menu.equals("8")) {
-                deleteTrainer(trainers, br);
+                deleteTrainer(trainers);
             } else if (menu.equals("9")) {
                 typeChart();
-            } else if (menu.equals("10")) {
+            } else if (menu.equals("0")) {
                 System.out.println("Exiting Pokedex");
                 break;
             } else {
@@ -60,8 +60,41 @@ public class App {
             }
         }
     }
+    public static class PokemonConcrete extends Pokemon {
+        public PokemonConcrete(int dexNumber, String name, String type1, String type2, String species, double height, double weight, String ability1, String ability2, String hiddenAbility, int hp, int attack, int defense, int spAttack, int spDefense, int speed, String regionName, int generation, String gameIntroduced) {
+            super(dexNumber, name, type1, type2, species, height, weight, ability1, ability2, hiddenAbility, hp, attack, defense, spAttack, spDefense, speed, regionName, generation, gameIntroduced);
+        }
+    
+        @Override
+        public void displayPokemonStats() {
+            System.out.println("Stats: ");
+            System.out.println("HP: " + getHp());
+            System.out.println("Attack: " + getAttack());
+            System.out.println("Defense: " + getDefense());
+            System.out.println("Special Attack: " + getSpAttack());
+            System.out.println("Special Defense: " + getSpDefense());
+            System.out.println("Speed: " + getSpeed());
+            System.out.println("Total: " + getTotal());
+        }
+    }
 
-    private static void addPokemon(ArrayList<Pokemon> pokedex, BufferedReader br) throws IOException {
+    public static class TrainerConcrete extends Trainer {
+        public TrainerConcrete(String name, int age, String gender, int money, String trainerClass, String trainerDesc, String regionName, int generation, String gameIntroduced) {
+            super(name, age, gender, money, trainerClass, trainerDesc, regionName, generation, gameIntroduced);
+        }
+    
+        @Override
+        public void displayTrainerInfo() {
+            System.out.println("Name : " + getName());
+            System.out.println("Age : " + getAge());
+            System.out.println("Money : $" + getMoney());
+            System.out.println("Trainer Class : " + getTrainerClass());
+            System.out.println("Trainer Description : " + getTrainerDesc());
+        }
+    }
+
+    
+    private static void addPokemon(ArrayList<PokemonConcrete> pokedex) throws IOException {
         System.out.println("=====Adding Pokemon to Pokedex=====");
         System.out.print("Region Name: ");
         String regionName = br.readLine();
@@ -191,15 +224,16 @@ public class App {
                 System.out.println("Invalid Speed");
             }
         }
-        Pokemon newPokemon = new Pokemon(dexNumber, name, type1, type2, species,
-                height, weight, ability1, ability2,
-                hiddenAbility, hp, attack, defense, spAttack,
-                spDefense, speed, regionName, generation, gameIntroduced);
+        PokemonConcrete newPokemon = new PokemonConcrete(dexNumber, name, type1, 
+                                        type2, species, height, weight, ability1, 
+                                        ability2, hiddenAbility, hp, attack, defense, 
+                                        spAttack, spDefense, speed, regionName, generation, 
+                                        gameIntroduced);
         pokedex.add(newPokemon);
         System.out.println("Pokemon added to the Pokedex successfully!");
     }
 
-    private static void viewPokedex(ArrayList<Pokemon> pokedex) {
+    private static void viewPokedex(ArrayList<PokemonConcrete> pokedex) {
         System.out.println("=====Viewing Pokedex=====");
         if (pokedex.isEmpty()) {
             System.out.println("Pokedex is empty");
@@ -211,7 +245,7 @@ public class App {
         }
     }
 
-    private static void updatePokedex(ArrayList<Pokemon> pokedex, BufferedReader br) throws IOException {
+    private static void updatePokedex(ArrayList<PokemonConcrete> pokedex, BufferedReader br) throws IOException {
         if (pokedex.isEmpty()) {
             System.out.println("Pokedex is empty");
             return;
@@ -325,7 +359,7 @@ public class App {
         return value;
     }
 
-    private static void releasePokemon(ArrayList<Pokemon> pokedex, BufferedReader br) throws IOException {
+    private static void releasePokemon(ArrayList<PokemonConcrete> pokedex, BufferedReader br) throws IOException {
         if (pokedex.isEmpty()) {
             System.out.println("Pokedex is empty");
             return;
@@ -373,7 +407,8 @@ public class App {
         System.out.print("Trainer Description: ");
         String trainerDesc = br.readLine();
     
-        Trainer newTrainer = new Trainer(name, age, gender, money, trainerClass, trainerDesc, regionName, generation, gameIntroduced);
+        TrainerConcrete newTrainer = new TrainerConcrete(name, age, gender, money, trainerClass, 
+                                    trainerDesc, regionName, generation, gameIntroduced);
         trainers.add(newTrainer);
         System.out.println("Trainer added successfully!");
     }
@@ -460,7 +495,7 @@ public class App {
         }
     }
 
-    private static void typeChart() throws IOException {
+    private static final void typeChart() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {
             System.out.println("""

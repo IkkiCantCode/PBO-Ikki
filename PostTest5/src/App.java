@@ -9,7 +9,8 @@ public final class App {
 
     public static void main(String[] args) throws IOException {
         ArrayList<PokemonConcrete> pokedex = new ArrayList<>();
-        ArrayList<TrainerConcrete> trainers = new ArrayList<>();
+        ArrayList<Trainer> trainers = new ArrayList<>();
+        
 
         while (true) {
             System.out.println("""
@@ -39,17 +40,17 @@ public final class App {
             } else if (menu.equals("2")) {
                 viewPokedex(pokedex);
             } else if (menu.equals("3")) {
-                updatePokedex(pokedex);
+                updatePokedex(pokedex, br);
             } else if (menu.equals("4")) {
-                releasePokemon(pokedex);
+                releasePokemon(pokedex, br);
             } else if (menu.equals("5")) {
-                addTrainer(trainers);
+                addTrainer(trainers, br);
             } else if (menu.equals("6")) {
                 viewTrainers(trainers);
             } else if (menu.equals("7")) {
-                updateTrainer(trainers);
+                updateTrainer(trainers, br);
             } else if (menu.equals("8")) {
-                deleteTrainer(trainers);
+                deleteTrainer(trainers, br);
             } else if (menu.equals("9")) {
                 typeChart();
             } else if (menu.equals("0")) {
@@ -408,9 +409,8 @@ public final class App {
         String trainerDesc = br.readLine();
     
         TrainerConcrete newTrainer = new TrainerConcrete(name, age, gender, money, trainerClass, 
-                                    trainerDesc, regionName, generation, gameIntroduced);
+                                trainerDesc, regionName, generation, gameIntroduced);
         trainers.add(newTrainer);
-        System.out.println("Trainer added successfully!");
     }
 
     private static void viewTrainers(ArrayList<Trainer> trainers) {
@@ -422,7 +422,7 @@ public final class App {
         System.out.println("=====Viewing Trainers=====");
         for (int i = 0; i < trainers.size(); i++) {
             System.out.println("Trainer Number: " + (i + 1));
-            trainers.get(i).display();
+            ((TrainerConcrete) trainers.get(i)).display();
         }
     }
 
@@ -443,7 +443,7 @@ public final class App {
             return;
         }
     
-        Trainer trainerToUpdate = trainers.get(update);
+        TrainerConcrete trainerToUpdate = (TrainerConcrete) trainers.get(update);
         System.out.println("Updating Trainer Number " + (update + 1));
     
         System.out.println("Trainer Home Region: ");

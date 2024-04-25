@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
+//Final
 public final class App {
     private static final BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -495,6 +496,7 @@ public final class App {
         }
     }
 
+    //Final
     private static final void typeChart() throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         while (true) {

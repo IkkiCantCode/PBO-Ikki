@@ -151,6 +151,7 @@ public abstract class Pokemon extends regionGen {
     
     //Override method display dari class regionGen
     @Override
+    //Final method display
     public final void display() {
         super.display();
         System.out.println("========================================");

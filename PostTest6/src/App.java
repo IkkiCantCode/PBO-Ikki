@@ -62,7 +62,7 @@ public final class App {
             }
         }
     }
-    public class PokemonConcrete extends Pokemon implements pokemonInterface {
+    public static class PokemonConcrete extends Pokemon implements pokemonInterface {
         public PokemonConcrete(int dexNumber, String name, String type1, String type2, String species, double height, double weight, String ability1, String ability2, String hiddenAbility, int hp, int attack, int defense, int spAttack, int spDefense, int speed, String regionName, int generation, String gameIntroduced) {
             super(dexNumber, name, type1, type2, species, height, weight, ability1, ability2, hiddenAbility, hp, attack, defense, spAttack, spDefense, speed, regionName, generation, gameIntroduced);
         }

@@ -62,7 +62,7 @@ public final class App {
             }
         }
     }
-    public static class PokemonConcrete extends Pokemon {
+    public class PokemonConcrete extends Pokemon implements pokemonInterface {
         public PokemonConcrete(int dexNumber, String name, String type1, String type2, String species, double height, double weight, String ability1, String ability2, String hiddenAbility, int hp, int attack, int defense, int spAttack, int spDefense, int speed, String regionName, int generation, String gameIntroduced) {
             super(dexNumber, name, type1, type2, species, height, weight, ability1, ability2, hiddenAbility, hp, attack, defense, spAttack, spDefense, speed, regionName, generation, gameIntroduced);
         }
@@ -78,9 +78,25 @@ public final class App {
             System.out.println("Speed: " + getSpeed());
             System.out.println("Total: " + getTotal());
         }
+
+        @Override
+        public void displayInfo() {
+            display();
+            displayPokemonStats();
+        }
+
+        @Override
+        public boolean validateInput(String input) {
+            try {
+                Integer.parseInt(input);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
     }
 
-    public static class TrainerConcrete extends Trainer {
+    public static class TrainerConcrete extends Trainer implements pokemonInterface {
         public TrainerConcrete(String name, int age, String gender, int money, String trainerClass, String trainerDesc, String regionName, int generation, String gameIntroduced) {
             super(name, age, gender, money, trainerClass, trainerDesc, regionName, generation, gameIntroduced);
         }
@@ -93,6 +109,21 @@ public final class App {
             System.out.println("Trainer Class : " + getTrainerClass());
             System.out.println("Trainer Description : " + getTrainerDesc());
         }
+
+        @Override
+        public void displayInfo() {
+            displayTrainerInfo();
+        }
+
+        @Override
+        public boolean validateInput(String input) {
+            try {
+                Integer.parseInt(input);
+                return true;
+            } catch (NumberFormatException e) {
+                return false;
+            }
+        }
     }
 
     
@@ -100,20 +131,36 @@ public final class App {
         System.out.println("=====Adding Pokemon to Pokedex=====");
         System.out.print("Region Name: ");
         String regionName = br.readLine();
+        PokemonConcrete tempPokemon = new PokemonConcrete(0, "", "", "", "", 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, "", 0, "");
+        while (!tempPokemon.validateInput(regionName)) {
+            System.out.println("Invalid Region Name");
+            System.out.print("Region Name: ");
+            regionName = br.readLine();
+        }
         System.out.print("Generation: ");
-        int generation = Integer.parseInt(br.readLine());
+        String generationInput = br.readLine();
+        while (!tempPokemon.validateInput(generationInput)) {
+            System.out.println("Invalid Generation");
+            System.out.print("Generation: ");
+            generationInput = br.readLine();
+        }
+        int generation = Integer.parseInt(generationInput);
         System.out.print("Game Introduced: ");
         String gameIntroduced = br.readLine();
+        while (!tempPokemon.validateInput(gameIntroduced)) {
+            System.out.println("Invalid Game Introduced");
+            System.out.print("Game Introduced: ");
+            gameIntroduced = br.readLine();
+        }
         int dexNumber;
-
         boolean dexExists;
         while (true) {
             System.out.print("Dex Number : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 dexNumber = Integer.parseInt(input);
                 dexExists = false;
-                int tempDexNumber = dexNumber; 
+                int tempDexNumber = dexNumber;
                 for (Pokemon p : pokedex) {
                     if (p.getDexNumber() == tempDexNumber) {
                         dexExists = true;
@@ -131,17 +178,37 @@ public final class App {
         }
         System.out.print("Name : ");
         String name = br.readLine();
+        while (!tempPokemon.validateInput(name)) {
+            System.out.println("Invalid Name");
+            System.out.print("Name : ");
+            name = br.readLine();
+        }
         System.out.print("Primary Type : ");
         String type1 = br.readLine();
+        while (!tempPokemon.validateInput(type1)) {
+            System.out.println("Invalid Primary Type");
+            System.out.print("Primary Type : ");
+            type1 = br.readLine();
+        }
         System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
         String type2 = br.readLine();
+        if (!type2.isEmpty() && !tempPokemon.validateInput(type2)) {
+            System.out.println("Invalid Secondary Type");
+            System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
+            type2 = br.readLine();
+        }
         System.out.print("Species : ");
         String species = br.readLine();
+        while (!tempPokemon.validateInput(species)) {
+            System.out.println("Invalid Species");
+            System.out.print("Species : ");
+            species = br.readLine();
+        }
         double height;
         while (true) {
             System.out.print("Height : ");
             String input = br.readLine();
-            if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+            if (tempPokemon.validateInput(input)) {
                 height = Double.parseDouble(input);
                 break;
             } else {
@@ -152,7 +219,7 @@ public final class App {
         while (true) {
             System.out.print("Weight : ");
             String input = br.readLine();
-            if (input.matches("[0-9]+(\\.[0-9]+)?")) {
+            if (tempPokemon.validateInput(input)) {
                 weight = Double.parseDouble(input);
                 break;
             } else {
@@ -161,15 +228,30 @@ public final class App {
         }
         System.out.print("Ability 1 : ");
         String ability1 = br.readLine();
+        while (!tempPokemon.validateInput(ability1)) {
+            System.out.println("Invalid Ability 1");
+            System.out.print("Ability 1 : ");
+            ability1 = br.readLine();
+        }
         System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
         String ability2 = br.readLine();
+        if (!ability2.isEmpty() && !tempPokemon.validateInput(ability2)) {
+            System.out.println("Invalid Ability 2");
+            System.out.print("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
+            ability2 = br.readLine();
+        }
         System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
         String hiddenAbility = br.readLine();
+        if (!hiddenAbility.isEmpty() && !tempPokemon.validateInput(hiddenAbility)) {
+            System.out.println("Invalid Hidden Ability");
+            System.out.print("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
+            hiddenAbility = br.readLine();
+        }
         int hp, attack, defense, spAttack, spDefense, speed;
         while (true) {
             System.out.print("HP : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 hp = Integer.parseInt(input);
                 break;
             } else {
@@ -179,7 +261,7 @@ public final class App {
         while (true) {
             System.out.print("Attack : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 attack = Integer.parseInt(input);
                 break;
             } else {
@@ -189,7 +271,7 @@ public final class App {
         while (true) {
             System.out.print("Defense : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 defense = Integer.parseInt(input);
                 break;
             } else {
@@ -199,7 +281,7 @@ public final class App {
         while (true) {
             System.out.print("Special Attack : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 spAttack = Integer.parseInt(input);
                 break;
             } else {
@@ -209,7 +291,7 @@ public final class App {
         while (true) {
             System.out.print("Special Defense : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 spDefense = Integer.parseInt(input);
                 break;
             } else {
@@ -219,18 +301,14 @@ public final class App {
         while (true) {
             System.out.print("Speed : ");
             String input = br.readLine();
-            if (input.matches("\\d+")) {
+            if (tempPokemon.validateInput(input)) {
                 speed = Integer.parseInt(input);
                 break;
             } else {
                 System.out.println("Invalid Speed");
             }
         }
-        PokemonConcrete newPokemon = new PokemonConcrete(dexNumber, name, type1, 
-                                        type2, species, height, weight, ability1, 
-                                        ability2, hiddenAbility, hp, attack, defense, 
-                                        spAttack, spDefense, speed, regionName, generation, 
-                                        gameIntroduced);
+        PokemonConcrete newPokemon = new PokemonConcrete(dexNumber, name, type1, type2, species, height, weight, ability1, ability2, hiddenAbility, hp, attack, defense, spAttack, spDefense, speed, regionName, generation, gameIntroduced);
         pokedex.add(newPokemon);
         System.out.println("Pokemon added to the Pokedex successfully!");
     }
@@ -252,61 +330,192 @@ public final class App {
             System.out.println("Pokedex is empty");
             return;
         }
-    
         System.out.println("=====Updating Pokedex=====");
         viewPokedex(pokedex);
-    
         System.out.print("Enter the Pokemon Number you want to update: ");
         int update = Integer.parseInt(br.readLine()) - 1;
-    
         if (update < 0 || update >= pokedex.size()) {
             System.out.println("Invalid Pokemon Number");
             return;
         }
-    
         Pokemon pokemonToUpdate = pokedex.get(update);
         System.out.println("Updating Pokemon Number " + (update + 1));
-        
         System.out.println("Region Name: ");
         String regionName = br.readLine();
+        PokemonConcrete tempPokemon = new PokemonConcrete(0, "", "", "", "", 0, 0, "", "", "", 0, 0, 0, 0, 0, 0, "", 0, "");
+        while (!tempPokemon.validateInput(regionName)) {
+            System.out.println("Invalid Region Name");
+            System.out.println("Region Name: ");
+            regionName = br.readLine();
+        }
         System.out.println("Generation: ");
-        int generation = Integer.parseInt(br.readLine());
+        String generationInput = br.readLine();
+        while (!tempPokemon.validateInput(generationInput)) {
+            System.out.println("Invalid Generation");
+            System.out.println("Generation: ");
+            generationInput = br.readLine();
+        }
+        int generation = Integer.parseInt(generationInput);
         System.out.println("Game Introduced: ");
         String gameIntroduced = br.readLine();
+        while (!tempPokemon.validateInput(gameIntroduced)) {
+            System.out.println("Invalid Game Introduced");
+            System.out.println("Game Introduced: ");
+            gameIntroduced = br.readLine();
+        }
         System.out.print("Dex Number : ");
-        int dexNumber = Integer.parseInt(br.readLine());
+        String dexNumberInput = br.readLine();
+        while (!tempPokemon.validateInput(dexNumberInput)) {
+            System.out.println("Invalid Dex Number");
+            System.out.print("Dex Number : ");
+            dexNumberInput = br.readLine();
+        }
+        int dexNumber = Integer.parseInt(dexNumberInput);
         for (Pokemon pokemon : pokedex) {
             if (dexNumber == pokemon.getDexNumber() && pokemon != pokemonToUpdate) {
                 System.out.println("Pokemon with the same Dex Number already exists");
                 System.out.println("Please enter a different Dex Number");
-                dexNumber = Integer.parseInt(br.readLine());
+                dexNumberInput = br.readLine();
+                while (!tempPokemon.validateInput(dexNumberInput)) {
+                    System.out.println("Invalid Dex Number");
+                    System.out.print("Dex Number : ");
+                    dexNumberInput = br.readLine();
+                }
+                dexNumber = Integer.parseInt(dexNumberInput);
             }
         }
-    
         System.out.print("Name : ");
         String name = br.readLine();
+        while (!tempPokemon.validateInput(name)) {
+            System.out.println("Invalid Name");
+            System.out.print("Name : ");
+            name = br.readLine();
+        }
         System.out.print("Primary Type : ");
         String type1 = br.readLine();
+        while (!tempPokemon.validateInput(type1)) {
+            System.out.println("Invalid Primary Type");
+            System.out.print("Primary Type : ");
+            type1 = br.readLine();
+        }
         System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
         String type2 = br.readLine();
+        if (!type2.isEmpty() && !tempPokemon.validateInput(type2)) {
+            System.out.println("Invalid Secondary Type");
+            System.out.print("Secondary Type (Press Enter if the Pokemon is Mono Type) : ");
+            type2 = br.readLine();
+        }
         System.out.print("Species : ");
         String species = br.readLine();
-        double height = readDoubleInput(br, "Height : ");
-        double weight = readDoubleInput(br, "Weight : ");
+        while (!tempPokemon.validateInput(species)) {
+            System.out.println("Invalid Species");
+            System.out.print("Species : ");
+            species = br.readLine();
+        }
+        double height;
+        while (true) {
+            System.out.print("Height : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                height = Double.parseDouble(input);
+                break;
+            } else {
+                System.out.println("Invalid Height");
+            }
+        }
+        double weight;
+        while (true) {
+            System.out.print("Weight : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                weight = Double.parseDouble(input);
+                break;
+            } else {
+                System.out.println("Invalid Weight");
+            }
+        }
         System.out.println("Ability 1 : ");
         String ability1 = br.readLine();
+        while (!tempPokemon.validateInput(ability1)) {
+            System.out.println("Invalid Ability 1");
+            System.out.println("Ability 1 : ");
+            ability1 = br.readLine();
+        }
         System.out.println("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
         String ability2 = br.readLine();
+        if (!ability2.isEmpty() && !tempPokemon.validateInput(ability2)) {
+            System.out.println("Invalid Ability 2");
+            System.out.println("Ability 2 (Press Enter if the Pokemon only has 1 Ability) : ");
+            ability2 = br.readLine();
+        }
         System.out.println("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
         String hiddenAbility = br.readLine();
-        int hp = readIntegerInput(br, "HP : ");
-        int attack = readIntegerInput(br, "Attack : ");
-        int defense = readIntegerInput(br, "Defense : ");
-        int spAttack = readIntegerInput(br, "Special Attack : ");
-        int spDefense = readIntegerInput(br, "Special Defense : ");
-        int speed = readIntegerInput(br, "Speed : ");
-    
-        //Untuk mengupdate data pokemon
+        if (!hiddenAbility.isEmpty() && !tempPokemon.validateInput(hiddenAbility)) {
+            System.out.println("Invalid Hidden Ability");
+            System.out.println("Hidden Ability (Press Enter if the Pokemon doesn't have Hidden Ability) : ");
+            hiddenAbility = br.readLine();
+        }
+        int hp, attack, defense, spAttack, spDefense, speed;
+        while (true) {
+            System.out.print("HP : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                hp = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid HP");
+            }
+        }
+        while (true) {
+            System.out.print("Attack : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                attack = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Attack");
+            }
+        }
+        while (true) {
+            System.out.print("Defense : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                defense = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Defense");
+            }
+        }
+        while (true) {
+            System.out.print("Special Attack : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                spAttack = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Special Attack");
+            }
+        }
+        while (true) {
+            System.out.print("Special Defense : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                spDefense = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Special Defense");
+            }
+        }
+        while (true) {
+            System.out.print("Speed : ");
+            String input = br.readLine();
+            if (tempPokemon.validateInput(input)) {
+                speed = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Speed");
+            }
+        }
         pokemonToUpdate.setRegionName(regionName);
         pokemonToUpdate.setGeneration(generation);
         pokemonToUpdate.setGameIntroduced(gameIntroduced);
@@ -330,36 +539,6 @@ public final class App {
         System.out.println("Pokemon Number " + (update + 1) + " has been updated");
     }
     
-    //Error Handling untuk input double dan integer
-    private static double readDoubleInput(BufferedReader br, String prompt) throws IOException {
-        double value;
-        while (true) {
-            System.out.print(prompt);
-            String input = br.readLine();
-            try {
-                value = Double.parseDouble(input);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid decimal number.");
-            }
-        }
-        return value;
-    }
-    
-    private static int readIntegerInput(BufferedReader br, String prompt) throws IOException {
-        int value;
-        while (true) {
-            System.out.print(prompt);
-            String input = br.readLine();
-            try {
-                value = Integer.parseInt(input);
-                break;
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid integer.");
-            }
-        }
-        return value;
-    }
 
     private static void releasePokemon(ArrayList<PokemonConcrete> pokedex, BufferedReader br) throws IOException {
         if (pokedex.isEmpty()) {
@@ -392,25 +571,78 @@ public final class App {
         System.out.println("=====Adding Trainer=====");
         System.out.println("Trainer Home Region: ");
         String regionName = br.readLine();
+        TrainerConcrete tempTrainer = new TrainerConcrete("", 0, "", 0, "", "", "", 0, "");
+        while (!tempTrainer.validateInput(regionName)) {
+            System.out.println("Invalid Region Name");
+            System.out.println("Trainer Home Region: ");
+            regionName = br.readLine();
+        }
         System.out.println("Trainer Generation: ");
-        int generation = Integer.parseInt(br.readLine());
+        String generationInput = br.readLine();
+        while (!tempTrainer.validateInput(generationInput)) {
+            System.out.println("Invalid Generation");
+            System.out.println("Trainer Generation: ");
+            generationInput = br.readLine();
+        }
+        int generation = Integer.parseInt(generationInput);
         System.out.println("Trainer Game Introduced: ");
         String gameIntroduced = br.readLine();
+        while (!tempTrainer.validateInput(gameIntroduced)) {
+            System.out.println("Invalid Game Introduced");
+            System.out.println("Trainer Game Introduced: ");
+            gameIntroduced = br.readLine();
+        }
         System.out.print("Trainer Name: ");
         String name = br.readLine();
-        System.out.print("Trainer Age: ");
-        int age = Integer.parseInt(br.readLine());
+        while (!tempTrainer.validateInput(name)) {
+            System.out.println("Invalid Trainer Name");
+            System.out.print("Trainer Name: ");
+            name = br.readLine();
+        }
+        int age;
+        while (true) {
+            System.out.print("Trainer Age: ");
+            String input = br.readLine();
+            if (tempTrainer.validateInput(input)) {
+                age = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Trainer Age");
+            }
+        }
         System.out.print("Trainer Gender: ");
         String gender = br.readLine();
-        System.out.print("Trainer Money: ");
-        int money = Integer.parseInt(br.readLine());
+        while (!tempTrainer.validateInput(gender)) {
+            System.out.println("Invalid Trainer Gender");
+            System.out.print("Trainer Gender: ");
+            gender = br.readLine();
+        }
+        int money;
+        while (true) {
+            System.out.print("Trainer Money: ");
+            String input = br.readLine();
+            if (tempTrainer.validateInput(input)) {
+                money = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Trainer Money");
+            }
+        }
         System.out.print("Trainer Class: ");
         String trainerClass = br.readLine();
+        while (!tempTrainer.validateInput(trainerClass)) {
+            System.out.println("Invalid Trainer Class");
+            System.out.print("Trainer Class: ");
+            trainerClass = br.readLine();
+        }
         System.out.print("Trainer Description: ");
         String trainerDesc = br.readLine();
-    
-        TrainerConcrete newTrainer = new TrainerConcrete(name, age, gender, money, trainerClass, 
-                                trainerDesc, regionName, generation, gameIntroduced);
+        while (!tempTrainer.validateInput(trainerDesc)) {
+            System.out.println("Invalid Trainer Description");
+            System.out.print("Trainer Description: ");
+            trainerDesc = br.readLine();
+        }
+        TrainerConcrete newTrainer = new TrainerConcrete(name, age, gender, money, trainerClass, trainerDesc, regionName, generation, gameIntroduced);
         trainers.add(newTrainer);
     }
 
@@ -419,7 +651,6 @@ public final class App {
             System.out.println("No trainers available");
             return;
         }
-    
         System.out.println("=====Viewing Trainers=====");
         for (int i = 0; i < trainers.size(); i++) {
             System.out.println("Trainer Number: " + (i + 1));
@@ -432,40 +663,97 @@ public final class App {
             System.out.println("No trainers available");
             return;
         }
-    
         System.out.println("=====Updating Trainer=====");
         viewTrainers(trainers);
-    
         System.out.print("Enter the Trainer Number you want to update: ");
         int update = Integer.parseInt(br.readLine()) - 1;
-    
         if (update < 0 || update >= trainers.size()) {
             System.out.println("Invalid Trainer Number");
             return;
         }
-    
         TrainerConcrete trainerToUpdate = (TrainerConcrete) trainers.get(update);
         System.out.println("Updating Trainer Number " + (update + 1));
-    
         System.out.println("Trainer Home Region: ");
-        trainerToUpdate.setRegionName(br.readLine());
+        String regionName = br.readLine();
+        while (!trainerToUpdate.validateInput(regionName)) {
+            System.out.println("Invalid Region Name");
+            System.out.println("Trainer Home Region: ");
+            regionName = br.readLine();
+        }
         System.out.println("Trainer Generation: ");
-        trainerToUpdate.setGeneration(Integer.parseInt(br.readLine()));
+        String generationInput = br.readLine();
+        while (!trainerToUpdate.validateInput(generationInput)) {
+            System.out.println("Invalid Generation");
+            System.out.println("Trainer Generation: ");
+            generationInput = br.readLine();
+        }
+        int generation = Integer.parseInt(generationInput);
         System.out.println("Trainer Game Introduced: ");
-        trainerToUpdate.setGameIntroduced(br.readLine());
+        String gameIntroduced = br.readLine();
+        while (!trainerToUpdate.validateInput(gameIntroduced)) {
+            System.out.println("Invalid Game Introduced");
+            System.out.println("Trainer Game Introduced: ");
+            gameIntroduced = br.readLine();
+        }
         System.out.print("Trainer Name: ");
-        trainerToUpdate.setName(br.readLine());
-        System.out.print("Trainer Age: ");
-        trainerToUpdate.setAge(Integer.parseInt(br.readLine()));
+        String name = br.readLine();
+        while (!trainerToUpdate.validateInput(name)) {
+            System.out.println("Invalid Trainer Name");
+            System.out.print("Trainer Name: ");
+            name = br.readLine();
+        }
+        int age;
+        while (true) {
+            System.out.print("Trainer Age: ");
+            String input = br.readLine();
+            if (trainerToUpdate.validateInput(input)) {
+                age = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Trainer Age");
+            }
+        }
         System.out.print("Trainer Gender: ");
-        trainerToUpdate.setGender(br.readLine());
-        System.out.print("Trainer Money: ");
-        trainerToUpdate.setMoney(Integer.parseInt(br.readLine()));
+        String gender = br.readLine();
+        while (!trainerToUpdate.validateInput(gender)) {
+            System.out.println("Invalid Trainer Gender");
+            System.out.print("Trainer Gender: ");
+            gender = br.readLine();
+        }
+        int money;
+        while (true) {
+            System.out.print("Trainer Money: ");
+            String input = br.readLine();
+            if (trainerToUpdate.validateInput(input)) {
+                money = Integer.parseInt(input);
+                break;
+            } else {
+                System.out.println("Invalid Trainer Money");
+            }
+        }
         System.out.print("Trainer Class: ");
-        trainerToUpdate.setTrainerClass(br.readLine());
+        String trainerClass = br.readLine();
+        while (!trainerToUpdate.validateInput(trainerClass)) {
+            System.out.println("Invalid Trainer Class");
+            System.out.print("Trainer Class: ");
+            trainerClass = br.readLine();
+        }
         System.out.print("Trainer Description: ");
-        trainerToUpdate.setTrainerDesc(br.readLine());
-    
+        String trainerDesc = br.readLine();
+        while (!trainerToUpdate.validateInput(trainerDesc)) {
+            System.out.println("Invalid Trainer Description");
+            System.out.print("Trainer Description: ");
+            trainerDesc = br.readLine();
+        }
+        trainerToUpdate.setRegionName(regionName);
+        trainerToUpdate.setGeneration(generation);
+        trainerToUpdate.setGameIntroduced(gameIntroduced);
+        trainerToUpdate.setName(name);
+        trainerToUpdate.setAge(age);
+        trainerToUpdate.setGender(gender);
+        trainerToUpdate.setMoney(money);
+        trainerToUpdate.setTrainerClass(trainerClass);
+        trainerToUpdate.setTrainerDesc(trainerDesc);
         System.out.println("Trainer Number " + (update + 1) + " has been updated");
     }
 

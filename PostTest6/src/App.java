@@ -87,12 +87,13 @@ public final class App {
 
         @Override
         public boolean validateInput(String input) {
-            try {
-                Integer.parseInt(input);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
+            String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (char c : input.toCharArray()) {
+                if (!allowedChars.contains(String.valueOf(c))) {
+                    return false;
+                }
             }
+            return true;
         }
     }
 
@@ -117,12 +118,13 @@ public final class App {
 
         @Override
         public boolean validateInput(String input) {
-            try {
-                Integer.parseInt(input);
-                return true;
-            } catch (NumberFormatException e) {
-                return false;
+            String allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            for (char c : input.toCharArray()) {
+                if (!allowedChars.contains(String.valueOf(c))) {
+                    return false;
+             }
             }
+            return true;
         }
     }
 
